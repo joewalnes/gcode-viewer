@@ -1,0 +1,4 @@
+# Config file for PagodaBox (where I host the app).
+web1:
+  document_root: web/
+
