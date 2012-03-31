@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GCode Viewer</title>
+    <link rel="stylesheet" href="lib/bootstrap.min.css">
+    <style>
+      #renderArea {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 40px;
+      }
+    </style>
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="lib/Three.js"></script>
+    <script src="viewer.js"></script>
+  </head>
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <span class="brand" href="#">GCode Viewer</span>
+          <ul class="nav">
+            <li><a href="#help">Open File</a></li>
+            <li><a href="#help">Help</a></li>
+            <li><a href="#help">GitHub</a></li>
+          </ul>
+          <ul class="nav pull-right">
+            <li><a href="http://twitter.com/joewalnes">@joewalnes</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="renderArea"></div>
+  </body>
+</html>
