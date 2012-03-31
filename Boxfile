@@ -1,4 +1,9 @@
-# Config file for PagodaBox (where I host the app).
+# The demo is deployed at http://gcode.joewalnes.com/
+#
+# The site is hosted by pagodabox.com.
+# This file is the deployment config.
+# To deploy the site, push this git repo to git@git.pagodabox.com:gcode-viewer.git
+
 web1:
   document_root: web/
 
