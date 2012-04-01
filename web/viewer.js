@@ -210,7 +210,7 @@ function openDialog() {
 var scene = null;
 var object = null;
 
-function openGCode(path) {
+function openGCodeFromPath(path) {
   $('#openModal').modal('hide');
   if (object) {
     scene.remove(object);
@@ -219,8 +219,21 @@ function openGCode(path) {
     object = createObjectFromGCode(gcode);
     scene.add(object);
     localStorage.setItem('last-loaded', path);
+    localStorage.removeItem('last-imported');
   });
 }
+
+function openGCodeFromText(gcode) {
+  $('#openModal').modal('hide');
+  if (object) {
+    scene.remove(object);
+  }
+  object = createObjectFromGCode(gcode);
+  scene.add(object);
+  localStorage.setItem('last-imported', gcode);
+  localStorage.removeItem('last-loaded');
+}
+
 
 $(function() {
 
@@ -240,7 +253,31 @@ $(function() {
     setTimeout(about, 500);
   }
 
+  // Drop files from desktop onto main page to import them.
+  $('body').on('dragover', function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    event.originalEvent.dataTransfer.dropEffect = 'copy'
+  }).on('drop', function(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    var files = event.originalEvent.dataTransfer.files;
+    if (files.length > 0) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        openGCodeFromText(reader.result);
+      };
+      reader.readAsText(files[0]);
+    }
+  });
+
   scene = createScene($('#renderArea'));
-  openGCode(localStorage.getItem('last-loaded') || 'examples/octocat.gcode');
+  var lastImported = localStorage.getItem('last-imported');
+  var lastLoaded = localStorage.getItem('last-loaded');
+  if (lastImported) {
+    openGCodeFromText(lastImported);
+  } else {
+    openGCodeFromPath(lastLoaded || 'examples/octocat.gcode');
+  }
 });
 

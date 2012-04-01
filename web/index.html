@@ -68,10 +68,11 @@
       <div class="modal-body">
         <h4>Examples</h4>
         <ul>
-          <li><a href="javascript:openGCode('examples/15mm_cube.gcode')">15mm_cube.gcode</a></li>
-          <li><a href="javascript:openGCode('examples/octocat.gcode')">octocat.gcode</a></li>
-          <li><a href="javascript:openGCode('examples/part.gcode')">part.gcode</a></li>
+          <li><a href="javascript:openGCodeFromPath('examples/15mm_cube.gcode')">15mm_cube.gcode</a></li>
+          <li><a href="javascript:openGCodeFromPath('examples/octocat.gcode')">octocat.gcode</a></li>
+          <li><a href="javascript:openGCodeFromPath('examples/part.gcode')">part.gcode</a></li>
         </ul>
+        <p>To view your own model, drag a gcode file from your desktop and drop it in this window.</p>
       </div>
       <div class="modal-footer">
         <a class="btn" data-dismiss="modal">Cancel</a>
@@ -93,6 +94,8 @@
         <p>This viewer shows the operations the machine will take.</p>
 
         <p>Drag the mouse to rotate the model. Hold down 'S' to zoom.</p>
+
+        <p>To view your own model, drag a gcode file from your desktop and drop it in this window.</p>
       </div>
       <div class="modal-footer">
         <a class="btn btn-primary" data-dismiss="modal">OK</a>
