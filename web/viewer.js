@@ -205,6 +205,11 @@ function about() {
 
 $(function() {
 
+  if (!Modernizr.webgl) {
+    alert('Sorry, you need a WebGL capable browser to use this.\n\nGet the latest Chrome or FireFox.');
+    return;
+  }
+
   // Show 'About' dialog for first time visits.
   if (Modernizr.localstorage) {
     if (!localStorage.getItem("not-first-visit")) {
