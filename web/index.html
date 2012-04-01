@@ -33,6 +33,7 @@
         <div class="container">
           <span class="brand" href="#">GCode Viewer</span>
           <ul class="nav">
+            <li><a href="javascript:openDialog()">Load Model</a></li>
             <li><a href="javascript:about()">About</a></li>
           </ul>
           <ul class="nav pull-right">
@@ -45,6 +46,24 @@
 
     <!-- WebGL rendering area -->
     <div id="renderArea"></div>
+
+    <div class="modal" id="openModal" style="display: none">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3>Open GCode</h3>
+      </div>
+      <div class="modal-body">
+        <h4>Examples</h4>
+        <ul>
+          <li><a href="javascript:openGCode('examples/15mm_cube.gcode')">15mm_cube.gcode</a></li>
+          <li><a href="javascript:openGCode('examples/octocat.gcode')">octocat.gcode</a></li>
+          <li><a href="javascript:openGCode('examples/part.gcode')">part.gcode</a></li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <a class="btn" data-dismiss="modal">Cancel</a>
+      </div>
+    </div>
 
     <!-- 'About' dialog'-->
     <div class="modal fade" id="aboutModal" style="display: none">

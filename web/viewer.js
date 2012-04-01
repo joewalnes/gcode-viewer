@@ -203,6 +203,25 @@ function about() {
   $('#aboutModal').modal();
 }
 
+function openDialog() {
+  $('#openModal').modal();
+}
+
+var scene = null;
+var object = null;
+
+function openGCode(path) {
+  $('#openModal').modal('hide');
+  if (object) {
+    scene.remove(object);
+  }
+  loadFile(path, function(gcode) {
+    object = createObjectFromGCode(gcode);
+    scene.add(object);
+    localStorage.setItem('last-loaded', path);
+  });
+}
+
 $(function() {
 
   if (!Modernizr.webgl) {
@@ -210,19 +229,18 @@ $(function() {
     return;
   }
 
+  if (!Modernizr.localstorage) {
+    alert("Man, your browser is ancient. I can't work with this. Please upgrade.");
+    return;
+  }
+
   // Show 'About' dialog for first time visits.
-  if (Modernizr.localstorage) {
-    if (!localStorage.getItem("not-first-visit")) {
-      localStorage.setItem("not-first-visit", true);
-      setTimeout(about, 500);
-    }
-  } else {
+  if (!localStorage.getItem("not-first-visit")) {
+    localStorage.setItem("not-first-visit", true);
     setTimeout(about, 500);
   }
 
-  var scene = createScene($('#renderArea'));
-  loadFile('./examples/octocat.gcode', function(gcode) {
-    scene.add(createObjectFromGCode(gcode));
-  });
+  scene = createScene($('#renderArea'));
+  openGCode(localStorage.getItem('last-loaded') || 'examples/octocat.gcode');
 });
 
