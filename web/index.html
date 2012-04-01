@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!--
+    GCode Viewer
+    https://github.com/joewalnes/gcode-viewer
+    -Joe Walnes
+  -->
   <head>
     <meta charset="utf-8">
     <title>GCode Viewer</title>
@@ -13,26 +18,53 @@
         top: 40px;
       }
     </style>
+    <script src="lib/modernizr.custom.93389.js"></script>
     <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="lib/bootstrap-modal.js"></script>
     <script src="lib/Three.js"></script>
     <script src="viewer.js"></script>
   </head>
   <body>
 
+    <!-- Top bar -->
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <span class="brand" href="#">GCode Viewer</span>
           <ul class="nav">
-            <li><a href="https://github.com/joewalnes/gcode-viewer" target="_blank">Code on GitHub</a></li>
+            <li><a href="javascript:about()">About</a></li>
           </ul>
           <ul class="nav pull-right">
+            <li><a href="https://github.com/joewalnes/gcode-viewer" target="_blank">Code on GitHub</a></li>
             <li><a href="http://twitter.com/joewalnes" target="_blank">@joewalnes</a></li>
           </ul>
         </div>
       </div>
     </div>
 
+    <!-- WebGL rendering area -->
     <div id="renderArea"></div>
+
+    <!-- 'About' dialog'-->
+    <div class="modal fade" id="aboutModal" style="display: none">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3>About GCode Viewer</h3>
+      </div>
+      <div class="modal-body">
+        <p>This is a viewer for <a href="http://en.wikipedia.org/wiki/G-code" target="_new">GCode</a>
+        files. GCode files are set of commands sent to CNC machines such as a
+        <a href="http://reprap.org/" target="_blank">RepRap</a> or
+        <a href="http://www.makerbot.com/" target="_blank">MakerBot</a> 3D printer.</p>
+
+        <p>This viewer shows the operations the machine will take.</p>
+
+        <p>Drag the mouse to rotate the model. Hold down 'S' to zoom.</p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" data-dismiss="modal">OK</a>
+      </div>
+    </div>
+
   </body>
 </html>

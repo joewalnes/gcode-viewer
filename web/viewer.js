@@ -199,7 +199,22 @@ function createScene(element) {
   return scene;
 }
 
+function about() {
+  $('#aboutModal').modal();
+}
+
 $(function() {
+
+  // Show 'About' dialog for first time visits.
+  if (Modernizr.localstorage) {
+    if (!localStorage.getItem("not-first-visit")) {
+      localStorage.setItem("not-first-visit", true);
+      setTimeout(about, 500);
+    }
+  } else {
+    setTimeout(about, 500);
+  }
+
   var scene = createScene($('#renderArea'));
   loadFile('./examples/octocat.gcode', function(gcode) {
     scene.add(createObjectFromGCode(gcode));
