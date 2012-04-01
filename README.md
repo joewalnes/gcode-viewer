@@ -12,4 +12,10 @@ Use it
 
 * http://gcode.joewalnes.com/
 
+To learn more, read my blog post:
+
+* http://joewalnes.com/2012/04/01/a-3d-webgl-gcode-viewer-for-understanding-3d-printers/
+
+Open sourced under MIT license.
+
 -Joe Walnes
