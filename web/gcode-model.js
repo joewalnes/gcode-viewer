@@ -30,10 +30,16 @@ function createObjectFromGCode(gcode) {
       };
 
       newLine.extruding = (newLine.e - lastLine.e) > 0;
+      var color = new THREE.Color(newLine.extruding ? 0xFFFFFF : 0x0000FF);
 
-      geometry.vertices.push(new THREE.Vertex(
-          new THREE.Vector3(newLine.x, newLine.y, newLine.z)));
-      geometry.colors.push(new THREE.Color(newLine.extruding ? 0xFFFFFF : 0x0000FF));
+      if (newLine.extruding) {
+        geometry.vertices.push(new THREE.Vertex(
+            new THREE.Vector3(lastLine.x, lastLine.y, lastLine.z)));
+        geometry.vertices.push(new THREE.Vertex(
+            new THREE.Vector3(newLine.x, newLine.y, newLine.z)));
+        geometry.colors.push(color);
+        geometry.colors.push(color);
+      }
 
       lastLine = newLine;
     },
@@ -104,7 +110,7 @@ function createObjectFromGCode(gcode) {
       opacity:0.4,
       linewidth: 1,
       vertexColors: THREE.FaceColors});
-  object.add(new THREE.Line(geometry, lineMaterial/*, THREE.LinePieces*/));
+  object.add(new THREE.Line(geometry, lineMaterial, THREE.LinePieces));
 
   // Center
   geometry.computeBoundingBox();
