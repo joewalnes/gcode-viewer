@@ -8,7 +8,7 @@ function createObjectFromGCode(gcode) {
 
   var geometry = new THREE.Geometry();
 
-  parseGCode(gcode, {
+  var parser = new GCodeParser({
 
     G1: function(args, line) {
       // Example: G1 Z1.0 F3000
@@ -79,7 +79,13 @@ function createObjectFromGCode(gcode) {
 
       // No-op
     },
+
+    'default': function(args, info) {
+      console.error('Unknown command:', args.cmd, args, info);
+    },
   });
+
+  parser.parse(gcode);
 
   var lineMaterial = new THREE.LineBasicMaterial({color:0xFFFFFF, opacity:0.2, linewidth: 1});
   object.add(new THREE.Line(geometry, lineMaterial));
