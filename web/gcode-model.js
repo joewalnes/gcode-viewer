@@ -8,6 +8,8 @@ function createObjectFromGCode(gcode) {
 
   var geometry = new THREE.Geometry();
 
+  var lastLine = {x:0, y:0, z:0, e:0, f:0, extruding:false};
+
   var parser = new GCodeParser({
 
     G1: function(args, line) {
@@ -19,11 +21,21 @@ function createObjectFromGCode(gcode) {
       // happens from the current extruded length to a length of
       // 22.4 mm.
 
-      if (args.x !== undefined && args.y !== undefined && args.z !== undefined) {
-        geometry.vertices.push(new THREE.Vertex(
-            new THREE.Vector3(args.x, args.y, args.z)));
-        geometry.colors.push(new THREE.Color(0xFFFF33));
-      }
+      var newLine = {
+        x: args.x !== undefined ? args.x : lastLine.x,
+        y: args.y !== undefined ? args.y : lastLine.y,
+        z: args.z !== undefined ? args.z : lastLine.z,
+        e: args.e !== undefined ? args.e : lastLine.e,
+        f: args.f !== undefined ? args.f : lastLine.f,
+      };
+
+      newLine.extruding = (newLine.e - lastLine.e) > 0;
+
+      geometry.vertices.push(new THREE.Vertex(
+          new THREE.Vector3(newLine.x, newLine.y, newLine.z)));
+      geometry.colors.push(new THREE.Color(newLine.extruding ? 0xFFFFFF : 0x0000FF));
+
+      lastLine = newLine;
     },
 
     G21: function(args) {
