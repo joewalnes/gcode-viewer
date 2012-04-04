@@ -22,6 +22,7 @@ function createObjectFromGCode(gcode) {
       if (args.x !== undefined && args.y !== undefined && args.z !== undefined) {
         geometry.vertices.push(new THREE.Vertex(
             new THREE.Vector3(args.x, args.y, args.z)));
+        geometry.colors.push(new THREE.Color(0xFFFF33));
       }
     },
 
@@ -87,8 +88,11 @@ function createObjectFromGCode(gcode) {
 
   parser.parse(gcode);
 
-  var lineMaterial = new THREE.LineBasicMaterial({color:0xFFFFFF, opacity:0.2, linewidth: 1});
-  object.add(new THREE.Line(geometry, lineMaterial));
+  var lineMaterial = new THREE.LineBasicMaterial({
+      opacity:0.4,
+      linewidth: 1,
+      vertexColors: THREE.FaceColors});
+  object.add(new THREE.Line(geometry, lineMaterial/*, THREE.LinePieces*/));
 
   // Center
   geometry.computeBoundingBox();
