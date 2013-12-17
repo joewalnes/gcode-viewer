@@ -19,3 +19,7 @@ To learn more, read my blog post:
 Open sourced under MIT license.
 
 -Joe Walnes
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/joewalnes/gcode-viewer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
