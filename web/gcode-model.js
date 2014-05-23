@@ -75,6 +75,10 @@ function createObjectFromGCode(gcode) {
       // happens from the current extruded length to a length of
       // 22.4 mm.
 
+	  /* newer makerbot gcode uses A instead of E on G1 */
+	  if (args.a && !args.e) {
+		args.e = args.a;
+	  }
       var newLine = {
         x: args.x !== undefined ? absolute(lastLine.x, args.x) : lastLine.x,
         y: args.y !== undefined ? absolute(lastLine.y, args.y) : lastLine.y,
@@ -136,6 +140,22 @@ function createObjectFromGCode(gcode) {
       lastLine = newLine;
     },
 
+	G130: function(args) {
+      // G130: MakerBot Set Stepper Motor VRef to defaults
+	},
+
+	G161: function(args) {
+      // G161: MakerBot Home Z Axis
+	},
+
+	G162: function(args) {
+      // G162: MakerBot Home XY Axis
+	},
+
+	M73: function(args) {
+      // M73: MakerBot Progress Meter Info
+	},
+
     M82: function(args) {
       // M82: Set E codes absolute (default)
       // Descriped in Sprintrun source code.
@@ -155,8 +175,28 @@ function createObjectFromGCode(gcode) {
       // No-op
     },
 
+	M126: function(args) {
+      // M126: MakerBot Turn On Fan
+	},
+
+	M127: function(args) {
+      // M127: MakerBot Turn Off Fan
+	},
+
+	M132: function(args) {
+      // M132: MakerBot Recall Stored Offsets
+	},
+
+	M136: function(args) {
+      // M136: MakerBot Build Begin
+	},
+
+	M137: function(args) {
+      // M136: MakerBot Build End
+	},
+
     'default': function(args, info) {
-      console.error('Unknown command:', args.cmd, args, info);
+      console.log('Unknown command:', args.cmd, args, info);
     },
   });
 

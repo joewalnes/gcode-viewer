@@ -38,8 +38,12 @@ function openGCodeFromText(gcode) {
   }
   object = createObjectFromGCode(gcode);
   scene.add(object);
-  localStorage.setItem('last-imported', gcode);
-  localStorage.removeItem('last-loaded');
+  try {
+    localStorage.setItem('last-imported', gcode);
+    localStorage.removeItem('last-loaded');
+  } catch (e) {
+    alert('error storing model: '+e);
+  }
 }
 
 
